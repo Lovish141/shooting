@@ -66,21 +66,46 @@ width, initial-scale=1.0">
      border: none;
      border-radius: 10px;
      padding:10px 25px;
+     cursor: pointer;
 }
 .ui .btn{
     color: #fff;
     text-decoration: none;
     text-transform: uppercase ;
 }
-        
+      .difficulty_ui{
+       position: fixed;
+       top: 10px;
+       right: 10px;
+       color: #fff;
+       user-select: none;
+      }  
+      .difficulty_ui #difficulty{
+          background: transparent;
+          color:#fff;
+          padding: 5px 7px;
+          user-select: none;
+      }
+      .difficulty_ui  select {
+          background: transparent;
+      }
+
     </style>
 </head>
 <body>
-    <div class="score"><span>Score : </span><span 
-
-id="scoreEl"> 0</span></div>
+    <div class="score"><span>Score : </span><span id="scoreEl"> 0</span></div>
+    <div class="difficulty_ui">
     
+        <label for="difficulty">Select Difficulty Level: </label>
+        <select name="" id="difficulty">
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+        </select>
+     
+    </div>
     <div class="ui" id="mlo">
+        
         <h1 id="bigscore">0</h1>
         <p>Points</p>
         <button type="button" id="startbtn">Start Game</button>

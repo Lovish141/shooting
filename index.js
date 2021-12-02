@@ -1,3 +1,5 @@
+
+
 const canvas=document.querySelector('canvas');
 const context=canvas.getContext('2d');
 canvas.height=innerHeight;
@@ -6,6 +8,18 @@ const scoreEl=document.getElementById('scoreEl');
 const startbtn=document.getElementById('startbtn');
 const mlo=document.getElementById('mlo');
 const bigscore=document.getElementById('bigscore');
+function gettingDifficulty(){
+    return document.getElementById('difficulty').value;
+}
+let difficultyLevel=gettingDifficulty();
+let difficulty=1;
+if(difficultyLevel=="Easy"){
+    difficulty=1;
+}else if(difficultyLevel=="Medium"){
+    difficulty=2;
+}else{
+    difficulty=4;
+}
 class Player{
     constructor(x,y,radius,color){
         this.x=x;
@@ -90,18 +104,48 @@ class Particle{
         this.alpha=this.alpha-0.01;
     }
 }
+class HugeWeapon {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.color = "rgba(255,0,133,1)";
+    }
+  
+    draw() {
+      context.beginPath();
+      context.fillStyle = this.color;
+      context.fillRect(this.x, this.y, 200, canvas.height);
+    }
+  
+    update() {
+      this.draw();
+      this.x += 20;
+    }
+  }
+
 let player=new Player(x,y,15,'white');
 let projectiles=[];
 let enemies=[];
 let particles=[];
+let hugeWeapon=[];
+
 function init(){
     player=new Player(x,y,15,'white');
     projectiles=[];
     enemies=[];
     particles=[];
+    hugeWeapon=[];
     score=0;
     scoreEl.innerHTML=score;
     bigscore.innerHTML=score;
+    difficultyLevel=gettingDifficulty();
+    if(difficultyLevel=="Easy"){
+        difficulty=1;
+    }else if(difficultyLevel=="Medium"){
+        difficulty=2;
+    }else{
+        difficulty=4;
+    }
 }
 
 addEventListener('click',(event)=>
@@ -135,6 +179,13 @@ function animate(){
         // particle.update();
          
     })
+    hugeWeapon.forEach((hugeweapon, hugeweaponIndex) => {
+        if (hugeWeapon.x > canvas.width) {
+          hugeWeapon.splice(hugeweaponIndex, 1);
+        } else {
+          hugeweapon.update();
+        }
+    });
    projectiles.forEach((projectile,projectileIndex)=>
    {
    projectile.update();
@@ -147,6 +198,17 @@ function animate(){
    enemies.forEach((enemy,index)=>{
       enemy.update();   
       const dist=Math.hypot(player.x-enemy.x,player.y-enemy.y);
+    //   finding he enemy and hugeweapon collision and killing them
+      hugeWeapon.forEach((hugeweapon)=>{
+        const disthe=hugeweapon.x-enemy.x;
+        if(disthe>=-200 && disthe<=200){
+            score+=100;
+            setTimeout(()=>{
+                enemies.splice(index,1);
+            },0)
+            scoreEl.innerHTML=score;
+        }
+    })
       //endgame
       if(dist-player.radius-enemy.radius<1){
           cancelAnimationFrame(animationid);
@@ -179,10 +241,8 @@ function animate(){
                 projectiles.splice(projectileIndex,1);
             },0)
            }
-        //    setTimeout(()=>{
-        //        enemies.splice(index,1);
-        //        projectiles.splice(projectileIndex,1);
-        //    },0)
+        
+       
        }
    })    
    }
@@ -212,8 +272,8 @@ function spawnEnemies(){
         const color=`hsl(${Math.random()*360},50%,50%)`;
         const angle = Math.atan2((canvas.height/2)-y,(canvas.width/2)-x);
         const velocity={
-           x: Math.cos(angle),
-           y:Math.sin(angle)
+           x: difficulty*Math.cos(angle),
+           y: difficulty*Math.sin(angle)
         }
         enemies.push(
             new Enemy(x,y,radius,color,velocity)
@@ -229,4 +289,20 @@ startbtn.addEventListener('click',()=>
   
 })
 
+
+addEventListener('keypress',(e)=>{
+    if(e.key==" "){
+        console.log("spacebar Pressed");
+        if (score < 400) {return;}
+        else{
+
+        // Decreasing Player Score for using Huge Weapon
+        score -= 400;
+        // Updating Player Score in Score board in html
+        scoreEl.innerHTML = score;
+        // hugeWeaponSound.play();
+        hugeWeapon.push(new HugeWeapon(0, 0));
+    }
+    }
+})
 
