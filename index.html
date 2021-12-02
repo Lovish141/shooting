@@ -73,7 +73,7 @@
       .difficulty_ui{
        position: fixed;
        top: 10px;
-       right: 10px;
+       right: 40px;
        color: #fff;
        user-select: none;
       }  
@@ -86,7 +86,37 @@
       .difficulty_ui  select {
           background: transparent;
       }
-
+      .help{
+          text-decoration: none;
+          position: fixed;
+       top: 10px;
+       right: 10px;
+       color: #fff;
+       user-select: none;
+       font-size: 1.5em;
+      }
+      .help-mlo{
+            position: fixed;
+            display: none;
+             margin: 0 ;
+            width: 40%;
+            height: 45%;
+            border: 2px solid rgb(138, 127, 127);
+            border-radius: 5px;
+            background: transparent;
+            backdrop-filter: blur(15px);
+            text-align: center;
+            color: #fff;
+            z-index: 10;
+            padding: 50px 75px;
+            font-size: 1.5em;
+      }
+.close{
+    position: relative;
+    bottom:30px;
+    left: 300px;
+    cursor: pointer;
+}
     </style>
 </head>
 <body>
@@ -99,8 +129,8 @@
             <option value="Medium">Medium</option>
             <option value="Hard">Hard</option>
         </select>
-        <button>
-        <i class="fa fa-question-circle"></i></button>
+        <a href="#"class="help" >
+            <i class="fa fa-question-circle"></i></a>
     </div>
     <div class="ui" id="mlo">
         
@@ -108,7 +138,17 @@
         <p>Points</p>
         <button type="button" id="startbtn">Start Game</button>
         <!-- <button type="button"><a href="#" class="btn" id="startbtn">Start Game</a></button> -->
-        
+    </div>
+    <div class="help-mlo">
+        <span class="close"><i class="fa fa-close fa-lg"></i></span>
+        <p>
+            <ol>
+                <li><p>Use mouse click to shoot.You will get 250 score for finishing the enemy and for per hit you will get 100. </p></li>
+                <li><p>Use space bar to launch special weapon.This will lead to decrease your score by 400 and you will get 100 per killing of ememy.</p></li>
+                <li><p>When the enemy will hit the player,The game will be over</p></li>
+                
+            </ol>
+        </p>
     </div>
     <canvas ></canvas>
     <script src="./index.js"></script>

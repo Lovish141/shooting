@@ -2,6 +2,17 @@ const shootingsound=new Audio("./sounds/music_shoooting.mp3");
 const killEnemySound = new Audio("./sounds/music_killEnemy.mp3");
 const gameOverSound = new Audio("./sounds/music_gameOver.mp3");
 const hugeWeaponSound = new Audio("./sounds/music_hugeWeapon.mp3");
+const help=document.querySelector('.help');
+const help_mlo=document.querySelector('.help-mlo');
+const close=document.querySelector('.close');
+close.addEventListener('click',()=>{
+    help_mlo.style.display='none';
+  
+})
+help.addEventListener('click',()=>{
+   help_mlo.style.display='block';
+  
+})
 
 const canvas=document.querySelector('canvas');
 const context=canvas.getContext('2d');
