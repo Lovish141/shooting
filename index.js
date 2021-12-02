@@ -1,4 +1,7 @@
-
+const shootingsound=new Audio("./sounds/music_shoooting.mp3");
+const killEnemySound = new Audio("./sounds/music_killEnemy.mp3");
+const gameOverSound = new Audio("./sounds/music_gameOver.mp3");
+const hugeWeaponSound = new Audio("./sounds/music_hugeWeapon.mp3");
 
 const canvas=document.querySelector('canvas');
 const context=canvas.getContext('2d');
@@ -20,6 +23,7 @@ if(difficultyLevel=="Easy"){
 }else{
     difficulty=4;
 }
+
 class Player{
     constructor(x,y,radius,color){
         this.x=x;
@@ -155,8 +159,9 @@ addEventListener('click',(event)=>
        x: 4*Math.cos(angle),
        y:4*Math.sin(angle)
     }
-    
+    shootingsound.play();
     projectiles.push(
+        
         new Projectile(x,y,5,'white',velocity)
     )
 })
@@ -212,6 +217,10 @@ function animate(){
       //endgame
       if(dist-player.radius-enemy.radius<1){
           cancelAnimationFrame(animationid);
+          gameOverSound.play();
+          hugeWeaponSound.pause();
+          shootingsound.pause();
+          killEnemySound.pause();
           mlo.style.display='block';
           bigscore.innerHTML=score;
       }
@@ -235,6 +244,7 @@ function animate(){
            }
            else{
             setTimeout(()=>{
+                killEnemySound.play();
                 score+=250;
                 scoreEl.innerHTML=score;  
                 enemies.splice(index,1);
@@ -286,7 +296,7 @@ startbtn.addEventListener('click',()=>
     animate();
     spawnEnemies(); 
     mlo.style.display ='none';  
-  
+    
 })
 
 
@@ -300,7 +310,7 @@ addEventListener('keypress',(e)=>{
         score -= 400;
         // Updating Player Score in Score board in html
         scoreEl.innerHTML = score;
-        // hugeWeaponSound.play();
+        hugeWeaponSound.play();
         hugeWeapon.push(new HugeWeapon(0, 0));
     }
     }

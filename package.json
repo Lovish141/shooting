@@ -1,0 +1,22 @@
+{
+  "name": "shooting-game",
+  "version": "1.0.0",
+  "description": "A shooting game made for fun by killing enemies coming towards player in the center. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lovish141/Shooing-game.git"
+  },
+  "author": "Lovish Sharma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lovish141/Shooing-game/issues"
+  },
+  "homepage": "https://github.com/Lovish141/Shooing-game#readme",
+  "dependencies": {
+    "font-awesome": "^4.7.0"
+  }
+}
